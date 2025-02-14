@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.yogesh'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+jar {
+    // this is necessary to run your JAR
+    manifest {
+        attributes 'Main-Class': 'com.yogesh.Main'
+    }
+
+    // the rest is to access resource files like images, etc.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+dependencies {
+//    implementation files('../lib/gson.jar')
+    implementation("com.google.code.gson:gson:2.10.1")
+
+}
+
+test {
+    useJUnitPlatform()
+}
